@@ -30,7 +30,6 @@ def home(request):
             return JsonResponse("serializer.data", status=201,safe=False)
         return JsonResponse(serializer.errors, status=400,safe=False)
     elif request.method == 'GET':
-        username = request.GET['username']
         snippets = Snippet.objects.all()
         filter_backends = [filters.SearchFilter]
         search_fields = ['username']
