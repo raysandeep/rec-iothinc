@@ -27,7 +27,7 @@ SECRET_KEY = '+x9zo2qqe@ptpmz4=+)4=f53cy#4i_a#$21-nj)gm5affkhz+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rec-cc.herokuapp.com']
 
 
 # Application definition
@@ -51,7 +51,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -87,7 +88,7 @@ DATABASES = {
 }
 if os.environ.get("DATABASE_URL") is not None:
     DATABASES['default'] = dj_database_url.config()
-    DEBUG = False
+    DEBUG = True
 
 
 # Password validation
