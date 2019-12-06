@@ -9,7 +9,7 @@ import re
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+'''
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
@@ -31,3 +31,4 @@ def user_login(request):
         return redirect('/dash')
     else:
         return render(request, 'login.html')
+'''
