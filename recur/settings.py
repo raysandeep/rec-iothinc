@@ -27,7 +27,7 @@ SECRET_KEY = '+x9zo2qqe@ptpmz4=+)4=f53cy#4i_a#$21-nj)gm5affkhz+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rec-cc.herokuapp.com']
+ALLOWED_HOSTS = ['rec-cc.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'django_filters',
+    'quiz'
 ]
 
 MIDDLEWARE = [
@@ -141,5 +143,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }

@@ -5,6 +5,7 @@ User = get_user_model()
 
 class Snippet(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    username = models.CharField(max_length=30)
     reg = models.CharField(max_length=100, blank=True, default='')
     skills = models.IntegerField()
     capability = models.IntegerField()
