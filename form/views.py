@@ -23,3 +23,7 @@ def home(request):
             serializer.save()
             return JsonResponse("serializer.data", status=201,safe=False)
         return JsonResponse(serializer.errors, status=400,safe=False)
+    elif request.method == 'GET':
+        snippets = Snippet.objects.all()
+        serializer = SnippetSerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)
