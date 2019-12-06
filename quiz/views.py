@@ -9,7 +9,7 @@ import re
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-'''
+
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
@@ -30,5 +30,45 @@ def user_login(request):
             return redirect('login')
         return redirect('/dash')
     else:
-        return render(request, 'login.html')
+        return render(request, 'index.html')
+
+'''
+def user_logout(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('/login')
+
+
+@login_required(login_url='/login/')
+def register(request):
+    if request.method == "POST":
+        first_name = request.POST['fname']
+        email = request.POST['email']
+
+        phone_number = request.POST['lname']
+        password =  request.POST['password']
+        confirm_password =  request.POST['cpassword']
+        
+        if password == confirm_password:
+            if User.objects.filter(email = email).exists():
+                messages.info(request , "Email Already exist")
+                return redirect('/login')
+            elif User.objects.filter(username = phone_number).exists():
+                messages.info(request , "Phone NUmber Already Exisits")
+                return redirect('/login')
+            else:
+                user = User.objects.create_user(first_name = first_name, last_name=phone_number,username=email, password=password) #change model name
+                user.save()
+                redirect('/login')
+        else:
+            messages.info(request, "Password Not Matching")
+            redirect('register')
+        return redirect('/login')
+    else:
+        return render(request , 'register.html')
+
+
+
+
+
 '''
