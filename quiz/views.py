@@ -53,7 +53,6 @@ def register(request):
         email = request.POST['email']
         regis_number = request.POST['register']
         phone =  request.POST['phone']
-        Projects =  request.POST['Projects']
         Technical =  request.POST['Technical']
         Management =  request.POST['Management']
         Design =  request.POST['Design']
