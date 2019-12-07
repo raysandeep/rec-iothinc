@@ -2,7 +2,6 @@ body
 {
     margin: 0;
     padding: 0;
-    height:300;
     background: #000000;
     font-size: 16px;
     color: #000000;
@@ -39,8 +38,7 @@ h1
     font-size: 28px;
 }
 
-input[type="text"],
-input[type="password"]
+input[type="text"]
 {
     display: block;
     box-sizing: border-box;
@@ -50,9 +48,10 @@ input[type="password"]
     height: 32px;
     border: none;
     outline: none;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #000000;
     font-family: sans-serif;
     font-weight: 400;
+    color: #000000;
     font-size: 15px;
     transition: 0.2s ease
     ;
@@ -66,7 +65,7 @@ input[type="submit"]
     background: #f44336;
     border: none;
     border-radius: 2px;
-    color: #000000;
+    color: #fff;
     font-family: sans-serif;
     font-weight: 500;
     text-transform: uppercase;
@@ -116,4 +115,5 @@ input[type="submit"]:focus
     position: absolute;
     border-radius: 100%;
     opacity: 0.7;
-  }
+
+}
