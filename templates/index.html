@@ -23,11 +23,12 @@
           
         <h2 style="color: #ffffff;"> Sign Up For the Recruitments :)</h2>
         <br>
-          <form action="" onsubmit="">
-          <input type="text" name="name" placeholder="Name" />
-          <input type="text" name="email" placeholder="Email" />
-          <input type="text" name="" placeholder="Registration Number" />
-          <input type="text" name="" placeholder="Mobile Number" />
+          <form method="POST">
+            {% csrf_token %}
+          <input type="text" name="name" placeholder="Name" required/>
+          <input type="text" name="email" placeholder="Email" required/>
+          <input type="text" name="register" placeholder="Registration Number" required/>
+          <input type="text" name="phone" placeholder="Mobile Number" />
           <p style="color: #ffffff;"> Select the domain that you want to register for :</p>
           <table style="color: #ffffff;" class=" table"align="center">
             <tr >
@@ -37,21 +38,26 @@
               <th>Design</th>
             </tr>
             <td align="center">
-                <input type="checkbox" name="" placeholder="Projects">
+                <input type="checkbox" name="Projects" placeholder="Projects">
             </td>
             <td align="center">
-              <input type="checkbox" name="" placeholder="Projects">
+              <input type="checkbox" name="Technical" placeholder="Projects">
             </td>
             <td align="center">
-              <input type="checkbox" name="" placeholder="Projects">
+              <input type="checkbox" name="Management" placeholder="Projects">
             </td>
             <td align="center">
-              <input type="checkbox" name="" placeholder="Projects">
+              <input type="checkbox" name="Design" placeholder="Projects">
             </td>
           </table>
         <br>
           <input type="submit" name="signup-button" value="submit" />
         </form>
+        <div>
+          {% for message in messages %}
+          <p style="color: red;font-weight: bold;">{{message}}</p>
+          {% endfor %}
+      </div>
         </div>       
 </body> 
 </html> 

@@ -9,11 +9,19 @@ import re
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+import random
+import string 
+import pyqrcode
+from PIL import Image
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+import png
+from .models import Snippet
+'''
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
-
         username = request.POST['username']
         password =  request.POST['password']
         request.session['user'] = username
@@ -32,43 +40,46 @@ def user_login(request):
     else:
         return render(request, 'index.html')
 
-'''
 def user_logout(request):
     if request.method == "POST":
         logout(request)
         return redirect('/login')
 
-
-@login_required(login_url='/login/')
+'''
+#@login_required(login_url='/login/')
 def register(request):
     if request.method == "POST":
-        first_name = request.POST['fname']
+        full_name = request.POST['name']
         email = request.POST['email']
+        regis_number = request.POST['register']
+        phone =  request.POST['phone']
+        Projects =  request.POST['Projects']
+        Technical =  request.POST['Technical']
+        Management =  request.POST['Management']
+        Design =  request.POST['Design']
 
-        phone_number = request.POST['lname']
-        password =  request.POST['password']
-        confirm_password =  request.POST['cpassword']
-        
-        if password == confirm_password:
-            if User.objects.filter(email = email).exists():
-                messages.info(request , "Email Already exist")
-                return redirect('/login')
-            elif User.objects.filter(username = phone_number).exists():
-                messages.info(request , "Phone NUmber Already Exisits")
-                return redirect('/login')
-            else:
-                user = User.objects.create_user(first_name = first_name, last_name=phone_number,username=email, password=password) #change model name
-                user.save()
-                redirect('/login')
+
+        if User.objects.filter(email = email).exists():
+            messages.info(request , "Email Already exist")
+            return redirect('/quiz/register')
+        elif User.objects.filter(username = phone).exists():
+            messages.info(request , "Phone NUmber Already Exisits")
+            return redirect('/quiz/register')
         else:
-            messages.info(request, "Password Not Matching")
-            redirect('register')
-        return redirect('/login')
-    else:
-        return render(request , 'register.html')
+            res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
+            user = Snippet(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design) #change model name
+            user.save()
+            url = pyqrcode.create(regis_number)  
+            # Create and save the png file naming "myqr.png" 
+            url.png('static/'+regis_number+'.png', scale = 8) 
+            subject, from_email, to = '[ LOGIN CRED ] IoThinC VIT Recuirtments  ', 'rayanuthalas@gmail.com', email
+            text_content = 'This is an important message from IoThinC-VIT. Please use attached QR Code for personal interview. Your OTP fro quiz is '+res
+            html_content = '<p>This is an <strong>important</strong> message from <b>IoThinC-VIT.</b> Please use attached QR Code for personal interview. Your OTP fro quiz is <b>'+res+"</b></p>"
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.attach_file('static/'+regis_number+'.png')
+            msg.send()
+            redirect('/quiz/register')
+    
 
 
-
-
-
-'''
