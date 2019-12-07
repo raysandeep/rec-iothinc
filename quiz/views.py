@@ -46,6 +46,13 @@ def user_logout(request):
         return redirect('/login')
 
 '''
+def bool(word):
+    if word=="on":
+        return True
+    else:
+        return False
+
+
 #@login_required(login_url='/login/')
 def register(request):
     if request.method == "POST":
@@ -53,10 +60,10 @@ def register(request):
         email = request.POST['email']
         regis_number = request.POST['register']
         phone =  request.POST['phone']
-        Technical =  request.POST['Technical']
-        Management =  request.POST['Management']
-        Design =  request.POST['Design']
-
+        Technical =  bool(request.POST['Technical'])
+        Management =  bool(request.POST['Management'])
+        Design =  bool(request.POST['Design'])
+        
 
         if User.objects.filter(email = email).exists():
             messages.info(request , "Email Already exist")
