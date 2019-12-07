@@ -18,15 +18,13 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import png
 from .models import SN
-'''
+
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
-        username = request.POST['username']
+        username = request.POST['user']
         password =  request.POST['password']
-        request.session['user'] = username
-
-        print(password)
+        print(username)
         user = auth.authenticate(username=username,password=password)
         print(user)
         if user is not None:
@@ -36,16 +34,14 @@ def user_login(request):
         else:
             messages.info(request, "Wrong Credentials")
             return redirect('login')
-        return redirect('/dash')
+        return redirect('/login')
     else:
-        return render(request, 'index.html')
+        return render(request, 'login.html')
 
 def user_logout(request):
     if request.method == "POST":
         logout(request)
         return redirect('/login')
-
-'''
 def bool(word):
     if word=="on":
         return True
