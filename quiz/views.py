@@ -17,7 +17,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import png
-from .models import Snippet
+from .models import SN
 '''
 # Create your views here.
 def user_login(request):
@@ -81,6 +81,5 @@ def register(request):
             msg.send()
             messages.info(request , "Succesfully Registered!!")
             return redirect('/quiz/register')
-    
-
-
+    else:
+        return render(request , 'index.html')

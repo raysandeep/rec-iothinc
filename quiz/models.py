@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Snippet(models.Model):
+class SN(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
     register_number = models.CharField(max_length=100, blank=True, default='')
@@ -13,3 +13,4 @@ class Snippet(models.Model):
     otp = models.CharField(max_length=10)
     class Meta:
         ordering = ['created']
+
