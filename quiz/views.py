@@ -79,7 +79,8 @@ def register(request):
             msg.attach_alternative(html_content, "text/html")
             msg.attach_file('static/'+regis_number+'.png')
             msg.send()
-            redirect('/quiz/register')
+            messages.info(request , "Succesfully Registered!!")
+            return redirect('/quiz/register')
     
 
 
