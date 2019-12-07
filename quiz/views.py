@@ -67,7 +67,7 @@ def register(request):
             return redirect('/quiz/register')
         else:
             res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
-            user = Snippet(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design) #change model name
+            user = SN(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design) #change model name
             user.save()
             url = pyqrcode.create(regis_number)  
             # Create and save the png file naming "myqr.png" 
