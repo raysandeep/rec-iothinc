@@ -61,10 +61,10 @@ def register(request):
 
         if User.objects.filter(email = email).exists():
             messages.info(request , "Email Already exist")
-            return redirect('/quiz/register')
+            return redirect('/api')
         elif User.objects.filter(username = phone).exists():
             messages.info(request , "Phone NUmber Already Exisits")
-            return redirect('/quiz/register')
+            return redirect('/api')
         else:
             res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
             user = SN(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design) #change model name
@@ -80,6 +80,6 @@ def register(request):
             msg.attach_file('static/'+regis_number+'.png')
             msg.send()
             messages.info(request , "Succesfully Registered!!")
-            return redirect('/quiz/register')
+            return redirect('/api')
     else:
         return render(request , 'index.html')
