@@ -20,23 +20,24 @@
       <div id='stars3'></div>
       <div id="login-box">
       <div class="left-box">
-          
-        <h2 style="color: #ffffff;"> Sign Up For the Recruitments :)</h2>
+            <form method="POST">
+                <br><br><br>
+        <h2 style="color: #ffffff;"> Login :)</h2>
         <br>
-          <form method="POST">
-            {% csrf_token %}
-          <input type="text" name="name" placeholder="email" required/>
-          <br>
-          <input type="password" name="password" placeholder="password" required/>
-
-        <br>
-          <input type="submit" name="signup-button" value="submit" />
-        </form>
+        
+                {% csrf_token %}
+                <div class="login" align="center">
+                        <input type="text" placeholder="username" name="user" align="center"><br>
+                        <input type="password" placeholder="password" name="password" align="center"><br>
+                        <input type="button" value="Login" align="center">
+                </div>
         <div>
           {% for message in messages %}
           <p style="color: red;font-weight: bold;">{{message}}</p>
           {% endfor %}
       </div>
-        </div>       
+    </form> 
+        </div>     
+
 </body> 
 </html> 
