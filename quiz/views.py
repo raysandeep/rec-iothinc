@@ -22,7 +22,7 @@ from .models import SN
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
-        username = request.POST['user']
+        username = request.POST['name']
         password =  request.POST['password']
         print(username)
         user = auth.authenticate(username=username,password=password)
@@ -36,7 +36,7 @@ def user_login(request):
             return redirect('login')
         return redirect('/login')
     else:
-        return render(request, 'login.html')
+        return render(request, 'login1.html')
 
 def user_logout(request):
     if request.method == "POST":
