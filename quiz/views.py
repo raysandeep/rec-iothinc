@@ -81,6 +81,8 @@ def register(request):
             msg.send()
             messages.info(request , "Succesfully Registered!!")
             return redirect('/quiz/register')
+    else:
+        return render(request , 'index.html')
     
 
 
