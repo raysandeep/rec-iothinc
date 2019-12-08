@@ -15,6 +15,7 @@ class SN(models.Model):
         ordering = ['created']
 class QN(models.Model):
     created = models.DateTimeField(auto_now_add = True)
+    q_id= models.IntegerField()
     question = models.CharField(max_length=1000)
     o1 = models.CharField(max_length=200)
     o2 = models.CharField(max_length=200)
