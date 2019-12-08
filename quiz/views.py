@@ -92,7 +92,7 @@ def dash(request):
                 oo4=[]
                 c0=[]
                 for i in range(3):
-                    data = SN.objects.filter(q_id = i+1)
+                    data = QN.objects.filter(q_id = i+1)
                     for i in data:
                         questions.append(i.question)
                         oo1.append(i.o1)
