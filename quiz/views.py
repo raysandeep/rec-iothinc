@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import random
 import string 
+import requests
 import pyqrcode
 from PIL import Image
 from django.core.mail import EmailMultiAlternatives
@@ -18,6 +19,11 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import png
 from .models import SN
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from .serializers import SNSerializer
+
 
 # Create your views here.
 def user_login(request):
@@ -73,12 +79,26 @@ def dash(request):
     if request.method == "POST":
         reg = request.POST['regno']
         otp = request.POST['otp']
-        print(SN.objects.filter(register_number = reg))
-        return render(request,'quizpage.html')
+        data = SN.objects.filter(register_number = reg)
+        for i in data:
+            print(i.register_number)
+            c_otp = i.otp
+        if c_otp == otp:
+            return render(request,'quizpage.html',{'reg':reg})
+        else:
+            messages.success(request, 'Wrong OTP!!!!', extra_tags='alert')
+            return render(request,'dashboard.html')
+
     else:
         return render(request,'dashboard.html')
 
 
+@csrf_exempt
+def api(request):
+    if request.method == 'GET':
+        snippets = SN.objects.all()
+        serializer = SNSerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)    
 
 
 

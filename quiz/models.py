@@ -13,4 +13,14 @@ class SN(models.Model):
     otp = models.CharField(max_length=10)
     class Meta:
         ordering = ['created']
+class QN(models.Model):
+    created = models.DateTimeField(auto_now_add = True)
+    question = models.CharField(max_length=1000)
+    o1 = models.CharField(max_length=200)
+    o2 = models.CharField(max_length=200)
+    o3 = models.CharField(max_length=200)
+    o4 = models.CharField(max_length=200)
+    co = models.CharField(max_length=200)
+    class Meta:
+        ordering = ['created']
 

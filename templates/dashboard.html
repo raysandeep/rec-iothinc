@@ -27,7 +27,22 @@
                             <input type="text" placeholder="Registration Number" name="regno" align="center"/><br>
                             <input type="text" placeholder="OTP" name="otp" align="center"/><br>
                             <input type="submit" value="Dive In" align="center"/>
+                            <!-- {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %} -->
                     </div>
+                    
             </form>
     </body>
+    <script>
+        {% if messages %}
+    {% for message in messages %}
+      alert("{{ message }}");
+    {% endfor %}
+{% endif %}
+    </script>
     </html>
