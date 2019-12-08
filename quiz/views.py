@@ -49,7 +49,7 @@ def user_admin_register(request):
         user = User.objects.create_superuser(username = username ,email=email, password=password)
         print(user.save())
         messages.info(request, "Succesfully Registered")
-        return redirect('/admin')
+        return redirect('/quiz/login')
     else:
         return render(request, 'alogin.html')
 
