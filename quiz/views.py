@@ -41,7 +41,7 @@ def user_login(request):
         else:
             messages.info(request, "Wrong Credentials")
             return redirect('login')
-        return redirect('/quiz/dash')
+        return redirect('/dash')
     else:
         return render(request, 'login1.html')
 
@@ -55,7 +55,7 @@ def user_admin_register(request):
         user = User.objects.create_superuser(username = username ,email=email, password=password)
         print(user.save())
         messages.info(request, "Succesfully Registered")
-        return redirect('/quiz/login')
+        return redirect('/login')
     else:
         return render(request, 'alogin.html')
 
@@ -104,7 +104,7 @@ def api(request):
 
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login')
 def register(request):
     if request.method == "POST":
         print(request.POST.get('Technical'))
@@ -119,10 +119,10 @@ def register(request):
 
         if User.objects.filter(email = email).exists():
             messages.info(request , "Email Already exist")
-            return redirect('/api')
+            return redirect('register/')
         elif User.objects.filter(username = phone).exists():
             messages.info(request , "Phone NUmber Already Exisits")
-            return redirect('/api')
+            return redirect('register/')
         else:
             res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
             user = SN(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design,otp=res) #change model name
