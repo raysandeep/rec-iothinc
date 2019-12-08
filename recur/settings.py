@@ -155,8 +155,8 @@ EMAIL_USE_TLS = True
 
 
 
-RECAPTCHA_PRIVATE_KEY = os.environ['recapta_private']
-RECAPTCHA_PUBLIC_KEY = os.environ['recapta_public']
+RECAPTCHA_PRIVATE_KEY = ""
+RECAPTCHA_PUBLIC_KEY = ""
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
 
