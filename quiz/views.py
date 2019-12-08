@@ -108,6 +108,7 @@ def quiz(request):
                 oo3.append(i.o3)
                 oo4.append(i.o4)
                 c0.append(i.co)
+        print(data)
         return render(request,'quizpage.html',{'reg':reg,'qns':questions,'o1':oo1,'o2':oo2,'o3':oo3,'o4':oo4,'co':c0})
 
 
