@@ -35,7 +35,7 @@ def user_login(request):
         else:
             messages.info(request, "Wrong Credentials")
             return redirect('login')
-        return redirect('/login')
+        return redirect('/quiz/dash')
     else:
         return render(request, 'login1.html')
 
