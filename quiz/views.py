@@ -77,7 +77,7 @@ def register(request):
             subject, from_email, to = '[ LOGIN CRED ] IoThinC VIT Recuirtments  ', 'rayanuthalas@gmail.com', email
             text_content = 'This is an important message from IoThinC-VIT. Please use attached QR Code for personal interview. Your OTP fro quiz is '+res
             html_content = '<p>This is an <strong>important</strong> message from <b>IoThinC-VIT.</b> Please use attached QR Code for personal interview. Your OTP fro quiz is <b>'+res+"</b></p>"
-            msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.attach_file('static/'+regis_number+'.png')
             msg.send()
