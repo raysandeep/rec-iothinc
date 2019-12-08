@@ -42,7 +42,8 @@ def user_logout(request):
     if request.method == "POST":
         logout(request)
         return redirect('/login')
-def bool(word):
+def boola(word):
+    print("wrod",word)
     if word=="on":
         return True
     else:
@@ -52,13 +53,14 @@ def bool(word):
 #@login_required(login_url='/login/')
 def register(request):
     if request.method == "POST":
+        print(request.POST.get('Technical'))
         full_name = request.POST['name']
         email = request.POST['email']
         regis_number = request.POST['register']
         phone =  request.POST['phone']
-        Technical =  bool(request.POST['Technical'])
-        Management =  bool(request.POST['Management'])
-        Design =  bool(request.POST['Design'])
+        Technical =  boola(request.POST.get('Technical'))
+        Management =  boola(request.POST.get('Management'))
+        Design =  boola(request.POST.get('Design'))
         
 
         if User.objects.filter(email = email).exists():
@@ -80,7 +82,7 @@ def register(request):
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.attach_file('static/'+regis_number+'.png')
-            msg.send()
+            #msg.send()
             messages.info(request , "Succesfully Registered!!")
             return redirect('/api')
     else:

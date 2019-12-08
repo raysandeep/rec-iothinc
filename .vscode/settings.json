@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "/home/sandeep/Desktop/projects/rec-iothinc/env/bin/python3.7"
+    "python.pythonPath": "/bin/python3",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
