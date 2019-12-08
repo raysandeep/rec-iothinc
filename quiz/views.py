@@ -51,7 +51,7 @@ def user_admin_register(request):
         messages.info(request, "Succesfully Registered")
         return redirect('/admin')
     else:
-        return render(request, 'login1.html')
+        return render(request, 'alogin.html')
 
 
 
