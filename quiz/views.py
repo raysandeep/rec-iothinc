@@ -42,7 +42,7 @@ def user_logout(request):
     if request.method == "POST":
         logout(request)
         return redirect('/login')
-def bool(word):
+def boola(word):
     if word=="on":
         return True
     else:
@@ -56,9 +56,9 @@ def register(request):
         email = request.POST['email']
         regis_number = request.POST['register']
         phone =  request.POST['phone']
-        Technical =  bool(request.POST['Technical'])
-        Management =  bool(request.POST['Management'])
-        Design =  bool(request.POST['Design'])
+        Technical =  boola(request.POST['Technical'])
+        Management =  boola(request.POST['Management'])
+        Design =  boola(request.POST['Design'])
         
 
         if User.objects.filter(email = email).exists():
