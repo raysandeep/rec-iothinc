@@ -39,6 +39,28 @@ def user_login(request):
     else:
         return render(request, 'login1.html')
 
+def user_admin_register(request):
+    if request.method == "POST":
+        username = request.POST['name']
+        email = request.POST['email'] 
+        password =  request.POST['password']
+        
+        
+        user = User.objects.create_superuser(username = username ,email=email, password=password)
+        print(user.save())
+        if user is not None:
+            auth.login(request, user)
+            print("LOGIN SUCCESS")
+            redirect('/')
+        else:
+            messages.info(request, "Wrong Credentials")
+            return redirect('login')
+        return redirect('/login')
+    else:
+        return render(request, 'login1.html')
+
+
+
 def user_logout(request):
     if request.method == "POST":
         logout(request)
