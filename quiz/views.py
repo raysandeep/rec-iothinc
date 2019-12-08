@@ -48,14 +48,8 @@ def user_admin_register(request):
         
         user = User.objects.create_superuser(username = username ,email=email, password=password)
         print(user.save())
-        if user is not None:
-            auth.login(request, user)
-            print("LOGIN SUCCESS")
-            redirect('/')
-        else:
-            messages.info(request, "Wrong Credentials")
-            return redirect('login')
-        return redirect('/login')
+        messages.info(request, "Succesfully Registered")
+        return redirect('/admin')
     else:
         return render(request, 'login1.html')
 
