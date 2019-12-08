@@ -84,7 +84,24 @@ def dash(request):
             print(i.register_number)
             c_otp = i.otp
         if c_otp == otp:
-            return render(request,'quizpage.html',{'reg':reg})
+            if request.method == 'POST':
+                questions=[]
+                oo1=[]
+                oo2=[]
+                oo3=[]
+                oo4=[]
+                c0=[]
+                for i in range(3):
+                    data = SN.objects.filter(q_id = i+1)
+                    for i in data:
+                        questions.append(i.question)
+                        oo1.append(i.o1)
+                        oo2.append(i.o2)
+                        oo3.append(i.o3)
+                        oo4.append(i.o4)
+                        c0.append(i.co)
+                print(data)
+                return render(request,'quizpage.html',{'reg':reg,'qns':questions,'o1':oo1,'o2':oo2,'o3':oo3,'o4':oo4})
         else:
             messages.success(request, 'Wrong OTP!!!!', extra_tags='alert')
             return render(request,'dashboard.html')

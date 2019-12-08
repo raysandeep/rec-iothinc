@@ -17,12 +17,12 @@
 		<div>Time Left:  <span id="time">10:00</span></div>
 	</header>
 	<nav class="nav">
-		<p>{{reg}}</p>
-		<img src="{% static 'img/logoedited.gif' %}">
+		<p>{{ reg }}</p>
+		<img src="logoedited.gif">
 	</nav>
 	<div id="heading"> <p>QUESTIONS</p> </div>
 	<section class="content">
-		{% for question in questions %}
+			{% for question in questions %}
 		{% for o1 in oo1 %}
 		{% for o2 in oo2 %}
 		{% for o3 in oo3 %}
