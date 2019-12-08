@@ -24,7 +24,8 @@ def user_login(request):
     if request.method == "POST":
         username = request.POST['name']
         password =  request.POST['password']
-        print(username)
+        request.session['username'] = username
+        print(password)
         user = auth.authenticate(username=username,password=password)
         print(user)
         if user is not None:
@@ -50,7 +51,24 @@ def boola(word):
         return False
 
 
-#@login_required(login_url='/login/')
+
+
+def dash(request):
+    if request.method == "POST":
+        reg = request.POST['regno']
+        otp = request.POST['otp']
+        print(SN.objects.filter(register_number = reg))
+        return render(request,'quizpage.html')
+    else:
+        return render(request,'dashboard.html')
+
+
+
+
+
+
+
+@login_required(login_url='/login/')
 def register(request):
     if request.method == "POST":
         print(request.POST.get('Technical'))
@@ -84,6 +102,6 @@ def register(request):
             msg.attach_file('static/'+regis_number+'.png')
             #msg.send()
             messages.info(request , "Succesfully Registered!!")
-            return redirect('/api')
+            return redirect('/quiz/dash')
     else:
         return render(request , 'index.html')
