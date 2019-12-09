@@ -133,7 +133,7 @@ def register(request):
             return redirect('register/')
         elif User.objects.filter(username = phone).exists():
             messages.info(request , "Phone NUmber Already Exisits")
-            return redirect('/')
+            return redirect('register/')
         else:
             res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
             user = SN(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design,otp=res) #change model name
