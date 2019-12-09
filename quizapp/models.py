@@ -13,6 +13,7 @@ class SN(models.Model):
     otp = models.CharField(max_length=10)
     class Meta:
         ordering = ['created']
+        
 class QN(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     q_id= models.IntegerField()
@@ -26,10 +27,8 @@ class QN(models.Model):
         ordering = ['created']
 class Questions(models.Model):
     CAT_CHOICES = (
-    ('recur_1','recur_1'),
-    ('recur_2','recur_2'),
-    ('recur_3','recur_3'),
-    ('recur_4','recur_4')
+    ('recur1','IoThinC Recuirtment'),
+    ('recur2','IoThinc Recuirtment2')
     )
     question = models.CharField(max_length = 250)
     optiona = models.CharField(max_length = 100)
@@ -45,3 +44,10 @@ class Questions(models.Model):
     def __str__(self):
         return self.question
 
+
+class results(models.Model):
+    created = models.DateTimeField(auto_now_add = True)
+    regis = models.CharField(max_length = 100)
+    marks = models.CharField(max_length = 100)
+    class Meta:
+        ordering = ['created']

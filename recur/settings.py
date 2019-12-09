@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'quiz',
     'que',
+    'quizapp',
     'snowpenguin.django.recaptcha3'
 ]
 

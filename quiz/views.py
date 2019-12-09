@@ -18,11 +18,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import png
-from .models import SN
+from .models import SN,QN,Questions
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .serializers import SNSerializer
+from quizapp.views import home
+from django.http import HttpResponse 
 
 
 # Create your views here.
@@ -40,8 +42,8 @@ def user_login(request):
             redirect('/')
         else:
             messages.info(request, "Wrong Credentials")
-            return redirect('login')
-        return redirect('/dash')
+            return redirect('/login')
+        return redirect('/')
     else:
         return render(request, 'login1.html')
 
@@ -62,9 +64,9 @@ def user_admin_register(request):
 
 
 def user_logout(request):
-    if request.method == "POST":
-        logout(request)
-        return redirect('/login')
+    logout(request)
+    return redirect('/login')
+
 def boola(word):
     print("wrod",word)
     if word=="on":
@@ -84,24 +86,9 @@ def dash(request):
             print(i.register_number)
             c_otp = i.otp
         if c_otp == otp:
-            if request.method == 'POST':
-                questions=[]
-                oo1=[]
-                oo2=[]
-                oo3=[]
-                oo4=[]
-                c0=[]
-                for i in range(3):
-                    data = QN.objects.filter(q_id = i+1)
-                    for i in data:
-                        questions.append(i.question)
-                        oo1.append(i.o1)
-                        oo2.append(i.o2)
-                        oo3.append(i.o3)
-                        oo4.append(i.o4)
-                        c0.append(i.co)
-                print(data)
-                return render(request,'quizpage.html',{'reg':reg,'qns':questions,'o1':oo1,'o2':oo2,'o3':oo3,'o4':oo4})
+            request.session['register']=reg
+            messages.success(request, 'Succesfully Verified OTP! Click on quiz to give quiz', extra_tags='alert')
+            return render(request,'dashboard.html')
         else:
             messages.success(request, 'Wrong OTP!!!!', extra_tags='alert')
             return render(request,'dashboard.html')
@@ -110,23 +97,11 @@ def dash(request):
         return render(request,'dashboard.html')
 def quiz(request):
     if request.method == 'POST':
-        questions=[]
-        oo1=[]
-        oo2=[]
-        oo3=[]
-        oo4=[]
-        c0=[]
-        for i in range(3):
-            data = SN.objects.filter(q_id = i+1)
-            for i in data:
-                questions.append(i.question)
-                oo1.append(i.o1)
-                oo2.append(i.o2)
-                oo3.append(i.o3)
-                oo4.append(i.o4)
-                c0.append(i.co)
-        print(data)
-        return render(request,'quizpage.html',{'reg':reg,'qns':questions,'o1':oo1,'o2':oo2,'o3':oo3,'o4':oo4,'co':c0})
+        print('ans',request.POST.get('ans1'))
+        return redirect('quiz/',)
+    else:
+           
+        return render(request,'quizpage.html')
 
 
 @csrf_exempt
@@ -158,7 +133,7 @@ def register(request):
             return redirect('register/')
         elif User.objects.filter(username = phone).exists():
             messages.info(request , "Phone NUmber Already Exisits")
-            return redirect('register/')
+            return redirect('/')
         else:
             res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
             user = SN(name = full_name, email_id=email,register_number=regis_number,phone=phone, tech=Technical,mgt=Management,design=Design,otp=res) #change model name
@@ -174,6 +149,49 @@ def register(request):
             msg.attach_file('static/'+regis_number+'.png')
             #msg.send()
             messages.info(request , "Succesfully Registered!!")
-            return redirect('/quiz/dash')
+            return redirect('/')
     else:
         return render(request , 'index.html')
+
+def shome(request):
+    choices = Questions.CAT_CHOICES
+    print(choices)
+    return render(request,
+        'quiz/home.html',
+        {'choices':choices})
+
+def questions(request , choice):
+    if request.method == "GET":
+        print(choice)
+        ques = Questions.objects.filter(catagory__exact = choice)
+        return render(request,
+            'quiz/questions.html',
+            {'ques':ques})
+
+def result(request):
+    print("result page")
+    if request.method == 'POST':
+        data = request.POST
+        datas = dict(data)
+        qid = []
+        qans = []
+        ans = []
+        score = 0
+        for key in datas:
+            try:
+                qid.append(int(key))
+                qans.append(datas[key][0])
+            except:
+                print("Csrf")
+        for q in qid:
+            ans.append((Questions.objects.get(id = q)).answer)
+        total = len(ans)
+        for i in range(total):
+            if ans[i] == qans[i]:
+                score += 1
+        # print(qid)
+        # print(qans)
+        # print(ans)
+        print(score)
+        eff = (score/total)*100
+    return render(request,'quiz/result.html',{'score':score,'eff':eff,'total':total})

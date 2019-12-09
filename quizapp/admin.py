@@ -4,4 +4,3 @@ from .models import SN,QN,Questions
 admin.site.register(SN)
 admin.site.register(QN)
 admin.site.register(Questions)
-

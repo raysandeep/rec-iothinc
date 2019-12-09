@@ -22,5 +22,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('',include('form.urls')),
-    path('',include('quiz.urls'))
+    path('',include('quiz.urls')),
+    path('quiz/',include('quizapp.urls'))
+
 ]
