@@ -28,7 +28,7 @@ SECRET_KEY = '+x9zo2qqe@ptpmz4=+)4=f53cy#4i_a#$21-nj)gm5affkhz+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rec-cc.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['iothinc.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -94,7 +94,7 @@ DATABASES = {
 }
 if os.environ.get("DATABASE_URL") is not None:
     DATABASES['default'] = dj_database_url.config()
-    DEBUG = True
+    DEBUG = False
 
 
 # Password validation
@@ -149,8 +149,8 @@ MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = "os.environ['email_id']"
-EMAIL_HOST_PASSWORD ="os.environ['email_pass']"
+EMAIL_HOST_USER = os.environ['email_id']
+EMAIL_HOST_PASSWORD =os.environ['email_pass']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
