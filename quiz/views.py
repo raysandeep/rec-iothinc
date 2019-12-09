@@ -147,7 +147,7 @@ def register(request):
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.attach_file('static/'+regis_number+'.png')
-            #msg.send()
+            msg.send()
             messages.info(request , "Succesfully Registered!!")
             return redirect('/')
     else:
